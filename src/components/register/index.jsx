@@ -1,30 +1,48 @@
 import { Button, Input, RadioButton, RadioContainer, SignContainer, SignForm, SignText } from "../shared/style";
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { register } from "../../services/AuthService";
+
 
 const Register = () => {
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = useState(null);
+    const addForm = useRef()
+
+    const SubmitHandler = (event) => {
+        event.preventDefault()
+
+        const data = {
+            name : addForm.current.name.value,
+            email : addForm.current.email.value,
+            password : addForm.current.password.value,
+            role:activeButton
+        }
+
+        register(data)
+        .then(res => navigate('/sign-in'))
+        .catch(err => console.log(err))
+    }
 
     return (
         <SignContainer>
-            <SignForm>
-                <Input type="text" placeholder="Full name" />
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
-                <Input type="password" placeholder="Confirm Password" />
+            <SignForm ref={addForm} onSubmit={SubmitHandler}>
+                <Input type="text" name="name" placeholder="Full name" />
+                <Input type="email" name="email" placeholder="Email" />
+                <Input type="password" name="password" placeholder="Password" />
+                <Input type="password" name="confirm-password" placeholder="Confirm Password" />
                 <RadioContainer>
                     <RadioButton
-                        onClick={(e) => { e.preventDefault(); setActiveButton('button1') }}
-                        disabled={activeButton === 'button2'}
-                        active={`${activeButton === 'button1'}`}
+                        onClick={(e) => { e.preventDefault(); setActiveButton('CUSTOMER') }}
+                        disabled={activeButton === 'OWNER'}
+                        active={`${activeButton === 'CUSTOMER'}`}
                     >
                         Customer
                     </RadioButton>
                     <RadioButton
-                        onClick={(e) => { e.preventDefault(); setActiveButton('button2') }}
-                        disabled={activeButton === 'button1'}
-                        active={`${activeButton === 'button2'}`}
+                        onClick={(e) => { e.preventDefault(); setActiveButton('OWNER') }}
+                        disabled={activeButton === 'CUSTOMER'}
+                        active={`${activeButton === 'OWNER'}`}
                     >
                         Owener
                     </RadioButton>
