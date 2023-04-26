@@ -14,13 +14,14 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        property().then(res => setProperties(res.data)).catch( err => console.log(err))
-    }, [])
+        property({params:filterData}).then(res => setProperties(res.data)).catch( err => console.log(err))
+    }, [filterData])
 
     const removeFilters = (e) => {
         e.preventDefault();
         setFilterData({});
-        filterRef.current.price.value = "";
+        filterRef.current.maxPrice.value = "";
+        filterRef.current.minPrice.value = "";
         filterRef.current.propertType.value = "";
         filterRef.current.numberOfRooms.value = "";
         filterRef.current.homeType.value = "";
@@ -29,11 +30,13 @@ const HomePage = () => {
 
     const applyFilters = (e) => {
         e.preventDefault();
+        console.log(filterRef.current)
         const data = {
-            price: filterRef.current.price.value,
+            maxPrice: filterRef.current.maxPrice.value,
+            minPrice: filterRef.current.minPrice.value,
             propertType: filterRef.current.propertType.value,
-            numberOfRooms: filterRef.current.numberOfRooms.value,
-            homeType: filterRef.current.homeType.value,
+            noOfRooms: filterRef.current.numberOfRooms.value,
+            contractType: filterRef.current.homeType.value,
             location: filterRef.current.location.value
         };
         setFilterData(data);
@@ -55,7 +58,8 @@ const HomePage = () => {
                 </SearchBarWrapper>
             </ImageContainer>
             <FilterContainer ref={filterRef}>
-                <Input type="text" name="price" placeholder="Price" />
+                <Input type="text" name="maxPrice" placeholder="Max Price" />
+                <Input type="text" name="minPrice" placeholder="Min Price" />
                 <Input type="text" name="propertType" placeholder="Property Type" />
                 <Input type="text" name="numberOfRooms" placeholder="Number of Rooms" />
                 <Input type="text" name="homeType" placeholder="Home Type" />
@@ -67,8 +71,14 @@ const HomePage = () => {
             </FilterContainer>
             <PropertyContainer>
                 {
-                    properties.map(p => {
-                        return <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
+                    properties && properties.map(p => {
+                        return searchData && searchData.length > 0 ? p.location.address.toLowerCase().includes(searchData.toLowerCase())  ? 
+                        <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
+                        rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                        :
+                        ''
+                        :
+                        <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
                         rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                     })
                 }
