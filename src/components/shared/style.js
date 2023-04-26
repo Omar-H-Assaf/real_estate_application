@@ -46,3 +46,23 @@ export const SignText = styled.a({
         color: '#4abd77',
     }
 });
+
+export const RadioContainer = styled.div({
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignContent: 'center'
+})
+
+export const RadioButton = styled.div({
+    border: '1px solid #69d895',
+    color: 'black',
+    backgroundColor: (props) => (props.active === 'true' ? '#69d895' : 'white'),
+    height: '3rem',
+    width: '130px',
+    borderRadius: '4px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: "center",
+    cursor: 'pointer'
+})
