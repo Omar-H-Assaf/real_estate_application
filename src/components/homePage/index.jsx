@@ -1,10 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
+import {property} from "../../services/PropertyService";
 import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
-import { API_URL } from "../../config";
-import axios from "axios";
-import { SetJWT } from "../../store/context";
+
 
 const HomePage = () => {
     const [properties, setProperties] = useState([])
@@ -12,12 +11,10 @@ const HomePage = () => {
     const [filterData, setFilterData] = useState({});
     const [searchData, setSearchData] = useState("");
     const filterRef = useRef();
-    const { jwt } = useContext(SetJWT);
+
 
     useEffect(() => {
-        if (jwt) {
-            axios.get(`${API_URL}/`)
-        }
+        property().then(res => setProperties(res.data)).catch( err => console.log(err))
     }, [])
 
     const removeFilters = (e) => {
@@ -69,10 +66,12 @@ const HomePage = () => {
                 </div>
             </FilterContainer>
             <PropertyContainer>
-                <Property id="1" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Available" propertyType="House" />
-                <Property id="2" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Pending" propertyType="House" />
-                <Property id="3" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Pending" propertyType="House" />
-                <Property id="4" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Contingent" propertyType="House" />
+                {
+                    properties.map(p => {
+                        return <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
+                        rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                    })
+                }
             </PropertyContainer>
         </HomePageContainer>
     )

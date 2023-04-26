@@ -5,7 +5,7 @@ export const PropertyCard = styled.div({
     position: 'relative',
     border: 'none',
     cursor: 'pointer',
-    height: '436px',
+    height: '470px',
     width: '384px',
     backgroundcolor: 'rgb(255, 255, 255)',
     boxSizing: 'border-box',
