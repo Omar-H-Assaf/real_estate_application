@@ -17,7 +17,6 @@ const SignInPage = () => {
             password:loginForm.current.password.value
         }
         login(data).then(res => {
-            console.log(res)
             Cookies.set('accessToken' , res.data.accessToken)
             Cookies.set('refreshToken' , res.data.refreshToken)
             navigate('/')

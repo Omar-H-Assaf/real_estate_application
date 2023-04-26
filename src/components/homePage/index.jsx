@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
-import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
-import { API_URL } from "../../config";
-import axios from "axios";
+import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style";
+import {property} from "../../services/PropertyService";
+
 
 const HomePage = () => {
 
@@ -14,7 +14,7 @@ const HomePage = () => {
     const filterRef = useRef();
 
     useEffect(() => {
-        axios.get(`${API_URL}/`)
+        property().then(res => setProperties(res.data)).catch( err => console.log(err))
     }, [])
 
     const removeFilters = (e) => {
@@ -66,10 +66,12 @@ const HomePage = () => {
                 </div>
             </FilterContainer>
             <PropertyContainer>
-                <Property id="1" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Available" propertyType="House" />
-                <Property id="2" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Pending" propertyType="House" />
-                <Property id="3" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Pending" propertyType="House" />
-                <Property id="4" imgSource={imgSource} price="$20,000" area="200 sqft" rooms="3" status="Contingent" propertyType="House" />
+                {
+                    properties.map(p => {
+                        return <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
+                        rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                    })
+                }
             </PropertyContainer>
         </HomePageContainer>
     )
