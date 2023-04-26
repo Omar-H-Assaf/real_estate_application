@@ -1,10 +1,18 @@
+import { useEffect, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
 import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
+import { API_URL } from "../../config";
+import axios from "axios";
 
 const HomePage = () => {
 
+    const [properties , setProperties] = useState([])
     const imgSource = "https://s0.2mdn.net/sadbundle/14800419125408425439/image.jpg";
+
+    useEffect( () => {
+        axios.get(`${API_URL}/`)
+    } , [])
 
     return (
         <HomePageContainer>
