@@ -1,7 +1,32 @@
-import { InfoConatiner, InfoLabel, PriceLabel, PropertyCard, PropertyImage, StatusLabel } from "./style";
+import { Icon, InfoConatiner, InfoLabel, PriceLabel, PropertyCard, PropertyImage, StatusContainer, StatusLabel } from "./style";
+import { useNavigate } from 'react-router-dom';
+import heart from '../../assets/icons/heart.png'
+import redHeart from '../../assets/icons/redHeart.png'
+import { useEffect, useState } from "react";
+import 'reactjs-popup/dist/index.css';
+import Popup from "./popup";
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 const Property = (props) => {
-    return <PropertyCard>
+
+    const navigate = useNavigate();
+    const [fav, setFav] = useState(false);
+    const [click, setClick] = useState(false);
+
+    const setFavIcon = (e) => {
+        e.stopPropagation();
+        setFav(!fav);
+        setClick(true);
+        disableBodyScroll(document);
+    }
+    useEffect(() => { enableBodyScroll(document); }, [])
+
+    const childData = (data) => {
+        setClick(data);
+        enableBodyScroll(document);
+    }
+
+    return <PropertyCard onClick={() => { if (!click) navigate(`/offer/${props.id}`) }}>
         <PropertyImage src={props.imgSource} />
         <PriceLabel>{props.price}</PriceLabel>
         <InfoConatiner>
@@ -9,7 +34,11 @@ const Property = (props) => {
             <InfoLabel> Rooms: {props.rooms},</InfoLabel>
             <InfoLabel> {props.propertyType}</InfoLabel>
         </InfoConatiner>
-        <StatusLabel status={props.status}>{props.status}</StatusLabel>
+        <StatusContainer>
+            <StatusLabel status={props.status}>{props.status}</StatusLabel>
+            <Icon src={fav ? redHeart : heart} onClick={(e) => setFavIcon(e)} />
+        </StatusContainer>
+        {click && fav && <Popup onData={childData} />}
     </PropertyCard>
 }
 

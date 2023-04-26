@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const MainImage = styled.img({
     width: '100%',
-    height: '25rem',
+    height: '30rem',
     objectFit: 'cover',
-    objectPosition: 'center bottom'
+    objectPosition: 'bottom center'
 })
 
 export const HomePageContainer = styled.div({

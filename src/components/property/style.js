@@ -16,6 +16,7 @@ export const PropertyCard = styled.div({
 
 export const PropertyImage = styled.img({
     height: '15rem',
+    minHeight: '15rem',
     width: '92%',
     margin: '1rem',
 })
@@ -39,4 +40,16 @@ export const StatusLabel = styled.div({
     color: (props) => props.status === 'Available' ? 'green' : props.status === 'Pending' ? 'red' : 'gray',
     fontSize: '24px',
     margin: '1rem'
-})
+});
+
+export const Icon = styled.img({
+    height: '2rem',
+    width: '2rem'
+});
+
+export const StatusContainer = styled.div({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: '1rem'
+});
