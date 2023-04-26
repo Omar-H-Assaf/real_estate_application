@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
-import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style";
 import {property} from "../../services/PropertyService";
+import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
 
 
 const HomePage = () => {
-
     const [properties, setProperties] = useState([])
     const imgSource = "https://s0.2mdn.net/sadbundle/14800419125408425439/image.jpg";
     const [filterData, setFilterData] = useState({});
     const [searchData, setSearchData] = useState("");
     const filterRef = useRef();
+
 
     useEffect(() => {
         property().then(res => setProperties(res.data)).catch( err => console.log(err))

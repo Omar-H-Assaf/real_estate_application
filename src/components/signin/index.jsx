@@ -1,34 +1,36 @@
 import { Button, Input, SignContainer, SignForm, SignText } from "../shared/style";
 import { useNavigate } from 'react-router-dom';
 import { ForgetPasswordText, RegisterContainer } from "./style";
-import { useRef } from "react";
-import {login} from '../../services/AuthService';
+import { useContext, useRef } from "react";
+import { login } from '../../services/AuthService';
 import Cookies from 'js-cookie';
+import { SetJWT } from "../../store/context";
 
 const SignInPage = () => {
     const navigate = useNavigate();
     const loginForm = useRef()
-
+    const { setJwt } = useContext(SetJWT);
 
     const SubmitHandler = (event) => {
         event.preventDefault()
         const data = {
-            email:loginForm.current.email.value,
-            password:loginForm.current.password.value
+            email: loginForm.current.email.value,
+            password: loginForm.current.password.value
         }
         login(data).then(res => {
             Cookies.set('accessToken' , res.data.accessToken)
             Cookies.set('refreshToken' , res.data.refreshToken)
+            setJwt(res.data.accessToken);
             navigate('/')
         })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
     }
 
     return (
         <SignContainer>
             <SignForm ref={loginForm} onSubmit={SubmitHandler}>
                 <Input type="email" name="email" placeholder="Email" required />
-                <Input type="password" name="password" placeholder="Password" required/>
+                <Input type="password" name="password" placeholder="Password" required />
                 <RegisterContainer>
                     <Button type="submit">Sign In</Button>
                     <div>
