@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import heart from '../../assets/icons/heart.png'
 import redHeart from '../../assets/icons/redHeart.png'
 import { useEffect, useState } from "react";
-import 'reactjs-popup/dist/index.css';
 import Popup from "./popup";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -26,7 +25,7 @@ const Property = (props) => {
         enableBodyScroll(document);
     }
 
-    return <PropertyCard onClick={() => { if (!click) navigate(`/offer/${props.id}`) }}>
+    return <PropertyCard onClick={() => { if (!click) navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
         <PropertyImage src={props.imgSource} />
         <PriceLabel>{props.price}</PriceLabel>
         <InfoConatiner>
