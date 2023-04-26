@@ -5,6 +5,7 @@ import { useContext, useRef } from "react";
 import { login } from '../../services/AuthService';
 import Cookies from 'js-cookie';
 import { SetJWT } from "../../store/context";
+import jwt_decode from 'jwt-decode';
 
 const SignInPage = () => {
     const navigate = useNavigate();
@@ -18,10 +19,10 @@ const SignInPage = () => {
             password: loginForm.current.password.value
         }
         login(data).then(res => {
-            Cookies.set('accessToken' , res.data.accessToken)
-            Cookies.set('refreshToken' , res.data.refreshToken)
-            setJwt(res.data.accessToken);
-            navigate('/')
+            Cookies.set('accessToken', res.data.accessToken);
+            Cookies.set('refreshToken', res.data.refreshToken);
+            setJwt(jwt_decode(res.data.accessToken));
+            navigate('/');
         })
             .catch(err => console.log(err))
     }

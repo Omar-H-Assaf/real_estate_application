@@ -4,11 +4,13 @@ import PageRoutes from './routes/routes';
 import { BrowserRouter } from 'react-router-dom';
 import { SetJWT } from './store/context';
 import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
 function App() {
   const [jwt, setJwt] = useState("");
+
   useEffect(() => {
-    setJwt(Cookies.get("accessToken"));
+    setJwt(jwt_decode(Cookies.get("accessToken")));
   }, []);
 
   return (
