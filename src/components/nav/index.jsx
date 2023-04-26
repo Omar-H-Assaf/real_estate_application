@@ -5,11 +5,11 @@ const NavBar = () => {
     const navigate = useNavigate();
     return <Nav>
         <NavText onClick={() => { navigate("/") }}>Property Management Portal</NavText>
-        <div>
+        {/* <div>
             <NavText>Duplex</NavText>
             <NavText>Single</NavText>
             <NavText>Condo</NavText>
-        </div>
+        </div> */}
         <NavText onClick={() => { navigate("sign-in") }}>Sign in</NavText>
     </Nav>
 }
