@@ -1,20 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
 import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
 import { API_URL } from "../../config";
 import axios from "axios";
+import { SetJWT } from "../../store/context";
 
 const HomePage = () => {
-
     const [properties, setProperties] = useState([])
     const imgSource = "https://s0.2mdn.net/sadbundle/14800419125408425439/image.jpg";
     const [filterData, setFilterData] = useState({});
     const [searchData, setSearchData] = useState("");
     const filterRef = useRef();
+    const { jwt } = useContext(SetJWT);
 
     useEffect(() => {
-        axios.get(`${API_URL}/`)
+        if (jwt) {
+            axios.get(`${API_URL}/`)
+        }
     }, [])
 
     const removeFilters = (e) => {
