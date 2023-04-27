@@ -2,7 +2,7 @@ import { Button, Input, RadioButton, RadioContainer, SignContainer, SignForm, Si
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from "react";
 import { register } from "../../services/AuthService";
-
+import Swal from 'sweetalert2'
 
 const Register = () => {
     const navigate = useNavigate();
@@ -13,15 +13,19 @@ const Register = () => {
         event.preventDefault()
 
         const data = {
-            name : addForm.current.name.value,
-            email : addForm.current.email.value,
-            password : addForm.current.password.value,
-            role:activeButton
+            name: addForm.current.name.value,
+            email: addForm.current.email.value,
+            password: addForm.current.password.value,
+            role: activeButton
         }
 
         register(data)
-        .then(res => navigate('/sign-in'))
-        .catch(err => console.log(err))
+            .then(res => navigate('/sign-in'))
+            .catch(err => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }))
     }
 
     return (

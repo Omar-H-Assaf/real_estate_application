@@ -3,6 +3,7 @@ import { PropertyContainer } from "../../homePage/style";
 import MyProperty from "./my-property";
 import { getMyProperties } from "../../../services/PropertyService";
 import { SetJWT } from "../../../store/context";
+import Swal from 'sweetalert2'
 
 const MyProperties = () => {
     const [properties, setProperties] = useState([])
@@ -12,7 +13,11 @@ const MyProperties = () => {
         getMyProperties(jwt).then((result) => {
             setProperties(result.data)
         }).catch((err) => {
-            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
         });
     }, [])
 

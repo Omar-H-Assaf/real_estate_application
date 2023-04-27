@@ -3,8 +3,8 @@ import { PropertyImage, StatusLabel } from "../../property/style";
 import { Button, Input } from "../../shared/style";
 import { Container, PropertyCard } from "./style";
 import { updateProperty, deleteProperty } from "../../../services/PropertyService";
-import Cookies from "js-cookie";
 import { SetJWT } from "../../../store/context";
+import Swal from 'sweetalert2'
 
 const MyProperty = (props) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -23,14 +23,22 @@ const MyProperty = (props) => {
             status: propertyRef.current.status.value,
             id: props.id
         }
-        updateProperty(data, jwt).then(res => console.log(res)).catch(err => console.log(err))
+        updateProperty(data, jwt).then(res => console.log(res)).catch(err => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        }))
     }
 
 
     const handleDelete = id => {
         console.log(id);
         if (id) {
-            deleteProperty(id, jwt).then(res => console.log(res)).catch(err => console.log(err))
+            deleteProperty(id, jwt).then(res => console.log(res)).catch(err => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }))
         }
     }
 
