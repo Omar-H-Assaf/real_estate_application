@@ -10,6 +10,8 @@ import AllAplication from '../components/owener/all-application';
 import AdminDashboard from '../components/admin';
 import { useContext } from 'react';
 import { SetJWT } from '../store/context';
+import RentedCustomers from '../components/admin/renter-customers';
+import ManageUsers from '../components/admin/manage-users';
 
 const PageRoutes = () => {
     const { userRole } = useContext(SetJWT);
@@ -24,6 +26,9 @@ const PageRoutes = () => {
             {userRole === "OWNER" && <Route path='add-properties' element={<AddProperties />} />}
             {userRole === "OWNER" && <Route path='my-properties' element={<MyProperties />} />}
             {userRole === "OWNER" && <Route path='all-applications' element={<AllAplication />} />}
+            {userRole === "ADMIN" && <Route path='customers' element={<RentedCustomers />} />}
+            {userRole === "ADMIN" && <Route path='manage-users' element={<ManageUsers />} />}
+            ManageUsers
         </Routes>
     );
 }

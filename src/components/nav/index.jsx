@@ -24,7 +24,6 @@ const NavBar = () => {
     }
 
     const Logout = () => {
-        console.log("inn");
         setJwt("");
         setUserID("");
         setUserRole("");
@@ -34,13 +33,16 @@ const NavBar = () => {
         navigate("sign-in");
     }
 
-    console.log(userRole);
     return <Nav>
         <NavText onClick={() => { navigate("/") }}>Property Management Portal</NavText>
         <div>
             {userRole === 'OWNER' && <NavText onClick={() => { navigate("/add-properties") }}>Add Properties</NavText>}
             {userRole === 'OWNER' && <NavText onClick={() => { navigate("/my-properties") }}>My Properties</NavText>}
             {userRole === 'OWNER' && <NavText onClick={() => { navigate("/all-applications") }}>all applications</NavText>}
+            {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/") }}>Rented Properties</NavText>}
+            {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/customers") }}>Last Customers</NavText>}
+            {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/manage-users") }}>Manage Users</NavText>}
+
             {jwt ? <NavText onClick={() => Logout()}>Log out</NavText> : <NavText onClick={() => { navigate("sign-in") }}>Sign in</NavText>}
         </div>
     </Nav>
