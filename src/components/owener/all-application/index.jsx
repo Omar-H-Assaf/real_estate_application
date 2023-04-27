@@ -9,14 +9,15 @@ const AllAplication = () => {
     const [offers , setOffers] = useState([])
 
     useEffect( () => {
-        getOffers(Cookies.get('accessToken')).then( res => console.log(res)).catch(err => console.log(err))
+        getOffers(Cookies.get('accessToken')).then( res => setOffers(res.data)).catch(err => console.log(err))
     } , [])
 
     return <PropertyContainer style={{ marginTop: '2rem' }}>
-        <Application id="1" price="200" message="ncfjcjnjdncjdncjdncjndjncjdncjdncjdncjdnjcndjcndjcnjdncjdncjdn" date="20/2/22" status="pending" />
-        <Application />
-        <Application />
-        <Application />
+    {
+        offers && offers.map( offer => {
+            return <Application id={offer.id} price={offer.price} message={offer.message} date={offer.offerDate} status={offer.status} />
+        })
+    }
     </PropertyContainer>
 }
 
