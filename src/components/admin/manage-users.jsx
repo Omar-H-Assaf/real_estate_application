@@ -4,6 +4,7 @@ import { AllCustomersAndOwners, ResetUserPassword, ToggleUserStatus } from "../.
 import { Tabel, TabelWrap, Tbody, Td, Th, Thead, Tr, TrTabel } from "./style";
 import { Button } from "../shared/style";
 import { SignText } from "../shared/style";
+import Swal from 'sweetalert2'
 
 const ManageUsers = () => {
     const [usres, setUsres] = useState([]);
@@ -15,7 +16,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setUsres(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, []);
 
     useEffect(() => {
@@ -23,7 +28,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setUsres(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, [flag]);
 
     const HandleResetPassword = (id) => {
@@ -31,7 +40,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setFlag(!flag);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     const HandleActivate = (id) => {
@@ -39,7 +52,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setFlag(!flag);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     const HandleDeactivate = (id) => {
@@ -47,7 +64,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setFlag(!flag);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     return <>

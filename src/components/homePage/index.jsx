@@ -3,7 +3,7 @@ import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
 import { property } from "../../services/PropertyService";
 import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
-
+import Swal from 'sweetalert2'
 
 const HomePage = () => {
     const [properties, setProperties] = useState([])
@@ -14,7 +14,11 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        property({ params: filterData }).then(res => setProperties(res.data)).catch(err => console.log(err))
+        property({ params: filterData }).then(res => setProperties(res.data)).catch(err => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        }))
     }, [filterData])
 
     const removeFilters = (e) => {

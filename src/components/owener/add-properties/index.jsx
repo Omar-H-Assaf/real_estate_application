@@ -3,8 +3,8 @@ import { Button, Input } from "../../shared/style";
 import { AddPropertiesContainer } from "./style";
 import { addProperty } from "../../../services/PropertyService";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { SetJWT } from "../../../store/context";
+import Swal from 'sweetalert2'
 
 const AddProperties = () => {
 
@@ -24,7 +24,11 @@ const AddProperties = () => {
         formData.append('location', addPropertiesRef.current.location.value)
         formData.append('area', addPropertiesRef.current.area.value)
 
-        addProperty(formData, jwt).then(res => navigate('/')).catch(err => console.log(err))
+        addProperty(formData, jwt).then(res => navigate('/')).catch(err => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        }))
     }
     console.log(selectedImage);
     return <div style={{ display: 'flex', justifyContent: "center", alignItem: "center", marginTop: '4rem' }}>
