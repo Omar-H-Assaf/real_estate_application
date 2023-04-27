@@ -37,7 +37,7 @@ export const InfoConatiner = styled.div({
 });
 
 export const StatusLabel = styled.div({
-    color: (props) => props.status === 'Available' ? 'green' : props.status === 'Pending' ? 'red' : 'gray',
+    color: (props) => props.status === 'ACTIVE' ? 'green' : props.status === 'PENDING' ? 'red' : 'gray',
     fontSize: '24px',
     margin: '1rem'
 });

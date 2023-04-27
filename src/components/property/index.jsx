@@ -12,7 +12,7 @@ const Property = (props) => {
     const navigate = useNavigate();
     const [fav, setFav] = useState(false);
     const [click, setClick] = useState(false);
-    const { jwt } = useContext(SetJWT);
+    const { jwt, userRole } = useContext(SetJWT);
 
     const setFavIcon = (e) => {
         e.stopPropagation();
@@ -27,7 +27,7 @@ const Property = (props) => {
         enableBodyScroll(document);
     }
 
-    return <PropertyCard onClick={() => { if (!click && jwt && props.status !== "Contingent") navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
+    return <PropertyCard onClick={() => { if (!click && jwt && props.status !== "Contingent" && userRole === 'CUSTOMER') navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
         <PropertyImage src={props.imgSource} />
         <PriceLabel>{props.price}</PriceLabel>
         <InfoConatiner>
@@ -37,7 +37,7 @@ const Property = (props) => {
         </InfoConatiner>
         <StatusContainer>
             <StatusLabel status={props.status}>{props.status}</StatusLabel>
-            {jwt && <Icon src={fav ? redHeart : heart} onClick={(e) => setFavIcon(e)} />}
+            {jwt && userRole === 'CUSTOMER' && <Icon src={fav ? redHeart : heart} onClick={(e) => setFavIcon(e)} />}
         </StatusContainer>
         {click && fav && <Popup onData={childData} />}
     </PropertyCard>

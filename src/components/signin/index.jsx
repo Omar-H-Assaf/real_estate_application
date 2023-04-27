@@ -10,7 +10,7 @@ import jwt_decode from 'jwt-decode';
 const SignInPage = () => {
     const navigate = useNavigate();
     const loginForm = useRef()
-    const { setJwt } = useContext(SetJWT);
+    const { setJwt, setUserRole } = useContext(SetJWT);
 
     const SubmitHandler = (event) => {
         event.preventDefault()
@@ -21,6 +21,7 @@ const SignInPage = () => {
         login(data).then(res => {
             Cookies.set('accessToken', res.data.accessToken);
             Cookies.set('refreshToken', res.data.refreshToken);
+            console.log("accessToken =>", res.data.accessToken);
             setJwt(jwt_decode(res.data.accessToken));
             navigate('/');
         })

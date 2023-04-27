@@ -24,7 +24,7 @@ const HomePage = () => {
         filterRef.current.minPrice.value = "";
         filterRef.current.propertType.value = "";
         filterRef.current.numberOfRooms.value = "";
-        filterRef.current.homeType.value = "";
+        filterRef.current.contractType.value = "";
         filterRef.current.location.value = "";
     }
 
@@ -36,7 +36,7 @@ const HomePage = () => {
             minPrice: filterRef.current.minPrice.value,
             propertType: filterRef.current.propertType.value,
             noOfRooms: filterRef.current.numberOfRooms.value,
-            contractType: filterRef.current.homeType.value,
+            contractType: filterRef.current.contractType.value,
             location: filterRef.current.location.value
         };
         setFilterData(data);
@@ -62,7 +62,7 @@ const HomePage = () => {
                 <Input type="text" name="minPrice" placeholder="Min Price" />
                 <Input type="text" name="propertType" placeholder="Property Type" />
                 <Input type="text" name="numberOfRooms" placeholder="Number of Rooms" />
-                <Input type="text" name="homeType" placeholder="Home Type" />
+                <Input type="text" name="contractType" placeholder="Contract Type" />
                 <Input type="text" name="location" placeholder="Location" />
                 <div>
                     <Button onClick={(e) => applyFilters(e)}>Apply Filter</Button>

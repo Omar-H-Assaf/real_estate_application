@@ -8,14 +8,21 @@ import jwt_decode from 'jwt-decode';
 
 function App() {
   const [jwt, setJwt] = useState("");
+  const [useID, setUserID] = useState("");
+  const [userRole, setUserRole] = useState("");
+
 
   useEffect(() => {
-    setJwt(jwt_decode(Cookies.get("accessToken")));
-  }, []);
+    if (Cookies.get("accessToken")) {
+      setJwt(jwt_decode(Cookies.get("accessToken")));
+      setUserRole(jwt_decode(Cookies.get("accessToken")).sub.split(',')[1]);
+      setUserID(jwt_decode(Cookies.get("accessToken")).sub.split(',')[2]);
+    }
+  }, [Cookies.get("accessToken")]);
 
   return (
     <div className="App">
-      <SetJWT.Provider value={{ jwt, setJwt }} >
+      <SetJWT.Provider value={{ jwt, setJwt, useID, setUserID, userRole, setUserRole }} >
         <BrowserRouter>
           <NavBar />
           <PageRoutes />
