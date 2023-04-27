@@ -1,7 +1,5 @@
 import { Button, Input } from "../../shared/style";
-import { AddIcon, Content, Header, ListContainer, ListName, Overlay } from "./style";
-import add from '../../../assets/icons/add.png';
-import { StatusLabel } from "../style";
+import { Content, Header, ListContainer, ListName, Overlay } from "./style";
 
 const Popup = (props) => {
 
