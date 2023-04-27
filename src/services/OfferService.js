@@ -9,3 +9,14 @@ export const getOffers = (jwt) => {
         }
     })
 }
+
+
+export const changeOfferStatus = (status , offerId , jwt) => {
+    return axios.put(API_URL + 'offers/' + offerId  , {
+        status:status
+    } ,{
+        headers:{
+            Authorization: `Bearer ${jwt}`
+        }
+    })
+}
