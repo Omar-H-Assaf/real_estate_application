@@ -27,7 +27,7 @@ const MyProperty = (props) => {
         <Input defaultValue={props.status} name="status" />
         <Container>
             <Button onClick={(e) => save(e)}>Save Changes</Button>
-            <StatusLabel status={"Pending"}>Delete</StatusLabel>
+            <StatusLabel status={"PENDING"}>Delete</StatusLabel>
 
         </Container>
     </PropertyCard>)
