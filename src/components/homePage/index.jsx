@@ -72,7 +72,7 @@ const HomePage = () => {
             <PropertyContainer>
                 {
                     properties && properties.map(p => {
-                        return searchData && searchData.length > 0 ? p.location.address.toLowerCase().includes(searchData.toLowerCase())  ? 
+                        return searchData && searchData.length > 0 ? p.location.toLowerCase().includes(searchData.toLowerCase())  ? 
                         <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
                         rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                         :

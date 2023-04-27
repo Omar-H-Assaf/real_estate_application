@@ -1,12 +1,17 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Button, Input } from "../../shared/style";
 import { AddPropertiesContainer } from "./style";
 import { PropertyImage } from "../../property/style";
+import { addProperty } from "../../../services/PropertyService";
+import { useNavigate } from "react-router-dom";
+import { SetJWT } from "../../../store/context";
 
 const AddProperties = () => {
 
     const addPropertiesRef = useRef();
     const [selectedImage, setSelectedImage] = useState(null);
+    const {useID} = useContext(SetJWT)
+    const navigate = useNavigate();
 
     const addProperties = (e) => {
         e.preventDefault();
@@ -16,9 +21,11 @@ const AddProperties = () => {
             numberOfRooms: addPropertiesRef.current.numberOfRooms.value,
             contractType: addPropertiesRef.current.contractType.value,
             location: addPropertiesRef.current.location.value,
-            image: selectedImage,
+            imgs: selectedImage,
+            user_id: useID
         }
-        console.log(data);
+        console.log(addPropertiesRef.current.myImage.value);
+        addProperty(data).then(res => navigate('/')).catch(err => console.log(err))
     }
 
     return <div style={{ display: 'flex', justifyContent: "center", alignItem: "center", marginTop: '4rem' }}>
@@ -35,7 +42,7 @@ const AddProperties = () => {
                 name="myImage"
                 onChange={(event) => {
                     console.log(event.target.files[0]);
-                    setSelectedImage(event.target.files[0]);
+                    setSelectedImage(event.target.files);
                 }}
             />
             <Button onClick={(e) => addProperties(e)}>Add Properties</Button>

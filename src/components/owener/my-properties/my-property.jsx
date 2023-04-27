@@ -24,7 +24,7 @@ const MyProperty = (props) => {
         console.log(data);
     }
     return (<PropertyCard ref={propertyRef}>
-        <PropertyImage src={selectedImage.includes("http") ? selectedImage : URL.createObjectURL(selectedImage)} />
+        <PropertyImage src={selectedImage} />
         <input
             type="file"
             name="myImage"
