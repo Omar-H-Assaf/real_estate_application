@@ -7,7 +7,6 @@ import { SetJWT } from "../../../store/context";
 import Swal from 'sweetalert2'
 
 const MyProperty = (props) => {
-    const [selectedImage, setSelectedImage] = useState(null);
     const { jwt } = useContext(SetJWT);
 
 
@@ -23,7 +22,13 @@ const MyProperty = (props) => {
             status: propertyRef.current.status.value,
             id: props.id
         }
-        updateProperty(data, jwt).then(res => console.log(res)).catch(err => Swal.fire({
+        updateProperty(data, jwt).then(res => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Updated!',
+            })
+        }).catch(err => Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -32,9 +37,15 @@ const MyProperty = (props) => {
 
 
     const handleDelete = id => {
-        console.log(id);
         if (id) {
-            deleteProperty(id, jwt).then(res => console.log(res)).catch(err => Swal.fire({
+            deleteProperty(id, jwt).then(res => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Deleted!',
+                })
+                props.setFlag(!props.flag)
+            }).catch(err => Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
@@ -44,7 +55,7 @@ const MyProperty = (props) => {
 
     return (
         <PropertyCard ref={propertyRef}>
-            <PropertyImage src={selectedImage} />
+            <PropertyImage src={props.imgSource} />
             <Input defaultValue={props.price} name="price" />
             <Input defaultValue={props.area} name="area" />
             <Input defaultValue={props.rooms} name="rooms" />

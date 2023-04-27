@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 const MyProperties = () => {
     const [properties, setProperties] = useState([])
     const { jwt } = useContext(SetJWT);
+    const [flag, setFlag] = useState(false);
 
     useEffect(() => {
         getMyProperties(jwt).then((result) => {
@@ -19,13 +20,13 @@ const MyProperties = () => {
                 text: 'Something went wrong!',
             })
         });
-    }, [])
+    }, [flag])
 
     return (
         <PropertyContainer>
             {
                 properties && properties.map(p => {
-                    return <MyProperty key={p.id} id={p.id} imgSource={p.pictures.path} price={p.price} area={p.area} rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                    return <MyProperty flag={flag} setFlag={setFlag} key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={p.price} area={p.area} rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                 })
             }
         </PropertyContainer >
