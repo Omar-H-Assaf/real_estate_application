@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { PropertyImage, StatusLabel } from "../../property/style";
 import { Button, Input } from "../../shared/style";
 import { Container, PropertyCard } from "./style";
-import { updateProperty , deleteProperty } from "../../../services/PropertyService";
+import { updateProperty, deleteProperty } from "../../../services/PropertyService";
 import Cookies from "js-cookie";
 
 const MyProperty = (props) => {
@@ -21,32 +21,31 @@ const MyProperty = (props) => {
             status: propertyRef.current.status.value,
             id: props.id
         }
-        console.log(data);
-        updateProperty(data , Cookies.get('accessToken')).then( res => console.log(res)).catch(err => console.log(err))
+        updateProperty(data, Cookies.get('accessToken')).then(res => console.log(res)).catch(err => console.log(err))
     }
 
 
     const handleDelete = id => {
         console.log(id);
-        if(id){
-            deleteProperty(id , Cookies.get('accessToken')).then(res => console.log(res)).catch( err => console.log(err))
+        if (id) {
+            deleteProperty(id, Cookies.get('accessToken')).then(res => console.log(res)).catch(err => console.log(err))
         }
     }
 
     return (
-    <PropertyCard ref={propertyRef}>
-        <PropertyImage src={selectedImage} />
-        <Input defaultValue={props.price} name="price" />
-        <Input defaultValue={props.area} name="area" />
-        <Input defaultValue={props.rooms} name="rooms" />
-        <Input defaultValue={props.propertyType} name="propertyType" />
-        <Input defaultValue={props.status} name="status" />
-        <Container>
-            <Button onClick={(e) => save(e)}>Save Changes</Button>
-            <StatusLabel onClick={ () => handleDelete(props.id)} status={"PENDING"}>Delete</StatusLabel>
+        <PropertyCard ref={propertyRef}>
+            <PropertyImage src={selectedImage} />
+            <Input defaultValue={props.price} name="price" />
+            <Input defaultValue={props.area} name="area" />
+            <Input defaultValue={props.rooms} name="rooms" />
+            <Input defaultValue={props.propertyType} name="propertyType" />
+            <Input defaultValue={props.status} name="status" />
+            <Container>
+                <Button onClick={(e) => save(e)}>Save Changes</Button>
+                <StatusLabel onClick={() => handleDelete(props.id)} status={"PENDING"}>Delete</StatusLabel>
 
-        </Container>
-    </PropertyCard>
+            </Container>
+        </PropertyCard >
     )
 }
 export default MyProperty;

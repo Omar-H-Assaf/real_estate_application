@@ -21,7 +21,6 @@ const SignInPage = () => {
         login(data).then(res => {
             Cookies.set('accessToken', res.data.accessToken);
             Cookies.set('refreshToken', res.data.refreshToken);
-            console.log("accessToken =>", res.data.accessToken);
             setJwt(jwt_decode(res.data.accessToken));
             navigate('/');
         })

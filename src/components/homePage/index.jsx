@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import Property from "../property"
 import { Button, Input, SignText } from "../shared/style";
-import {property} from "../../services/PropertyService";
+import { property } from "../../services/PropertyService";
 import { FilterContainer, HomePageContainer, ImageContainer, ImageText, MainImage, PropertyContainer, SearchBarWrapper, SearchInput } from "./style"
 
 
@@ -14,7 +14,7 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        property({params:filterData}).then(res => setProperties(res.data)).catch( err => console.log(err))
+        property({ params: filterData }).then(res => setProperties(res.data)).catch(err => console.log(err))
     }, [filterData])
 
     const removeFilters = (e) => {
@@ -30,7 +30,6 @@ const HomePage = () => {
 
     const applyFilters = (e) => {
         e.preventDefault();
-        console.log(filterRef.current)
         const data = {
             maxPrice: filterRef.current.maxPrice.value,
             minPrice: filterRef.current.minPrice.value,
@@ -72,14 +71,14 @@ const HomePage = () => {
             <PropertyContainer>
                 {
                     properties && properties.map(p => {
-                        return searchData && searchData.length > 0 ? p.location.toLowerCase().includes(searchData.toLowerCase())  ? 
-                        <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
-                        rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
-                        :
-                        ''
-                        :
-                        <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$'+p.price} area={p.area + "sqft"} 
-                        rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                        return searchData && searchData.length > 0 ? p.location.toLowerCase().includes(searchData.toLowerCase()) ?
+                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$' + p.price} area={p.area + "sqft"}
+                                rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                            :
+                            ''
+                            :
+                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$' + p.price} area={p.area + "sqft"}
+                                rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                     })
                 }
             </PropertyContainer>
