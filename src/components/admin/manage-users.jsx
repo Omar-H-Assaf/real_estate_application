@@ -36,9 +36,11 @@ const ManageUsers = () => {
     }, [flag]);
 
     const HandleResetPassword = (id) => {
+        Swal.showLoading()
         ResetUserPassword({ jwt }, { id: id })
             .then((res) => {
                 setFlag(!flag);
+                Swal.close();
             })
             .catch((err) => Swal.fire({
                 icon: 'error',
@@ -48,8 +50,11 @@ const ManageUsers = () => {
     };
 
     const HandleActivate = (id) => {
+        Swal.showLoading()
+
         ToggleUserStatus({ jwt }, { id: id, status: "ACTIVE" })
             .then((res) => {
+                Swal.close();
                 setFlag(!flag);
             })
             .catch((err) => Swal.fire({
@@ -60,8 +65,11 @@ const ManageUsers = () => {
     };
 
     const HandleDeactivate = (id) => {
+        Swal.showLoading()
+
         ToggleUserStatus({ jwt }, { id: id, status: "INACTIVE" })
             .then((res) => {
+                Swal.close();
                 setFlag(!flag);
             })
             .catch((err) => Swal.fire({

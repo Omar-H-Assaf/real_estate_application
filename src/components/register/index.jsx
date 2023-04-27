@@ -11,6 +11,7 @@ const Register = () => {
 
     const SubmitHandler = (event) => {
         event.preventDefault()
+        Swal.showLoading()
 
         const data = {
             name: addForm.current.name.value,
@@ -20,7 +21,9 @@ const Register = () => {
         }
 
         register(data)
-            .then(res => navigate('/sign-in'))
+            .then(res => {
+                navigate('/sign-in'); Swal.close()
+            })
             .catch(err => Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

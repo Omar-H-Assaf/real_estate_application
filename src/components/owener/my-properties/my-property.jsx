@@ -14,6 +14,8 @@ const MyProperty = (props) => {
 
     const save = (e) => {
         e.preventDefault();
+        Swal.showLoading()
+
         const data = {
             price: propertyRef.current.price.value,
             area: propertyRef.current.area.value,
