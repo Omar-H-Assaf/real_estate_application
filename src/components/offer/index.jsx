@@ -1,26 +1,32 @@
-import { useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { Button, Input } from "../shared/style";
 import { OfferContainer, PropertyImage, PropertyInfo, TextArea } from "./style";
-import { useLocation } from 'react-router-dom'
-const Offer = () => {
+import { useLocation, useParams } from 'react-router-dom'
+import { SendOffer } from "../../services/UserService";
+import { SetJWT } from "../../store/context";
+const Offer = (props) => {
+    const { jwt } = useContext(SetJWT);
+    const param = useParams();
     const location = useLocation();
-    const [offer, setOffer] = useState();
     const propertyInfo = useRef();
+
     const sendOffer = (e) => {
         e.preventDefault();
         const data = {
-            offer: propertyInfo.current.offerName.value,
-            comment: propertyInfo.current.comment.value,
+            price: propertyInfo.current.price.value,
+            message: propertyInfo.current.comment.value,
+            status: "OFFERED",
+            property_id: param.id
         };
-        setOffer(data);
+        SendOffer(data, jwt)
     }
 
     return (<OfferContainer>
         <PropertyImage src={location.state.img} />
         <PropertyInfo ref={propertyInfo}>
             <h1>Send Offer</h1>
-            <Input name="offerName" typle="text" placeholder="Enter your offer price" />
-            <TextArea name="comment" />
+            <Input name="price" typle="text" placeholder="Enter your offer price" />
+            <TextArea name="comment" placeholder="Add your comments" />
             <Button onClick={(e) => sendOffer(e)}>Send Offer</Button>
         </PropertyInfo>
     </OfferContainer>)

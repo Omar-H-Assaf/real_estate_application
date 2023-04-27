@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     if (Cookies.get("accessToken")) {
-      setJwt(jwt_decode(Cookies.get("accessToken")));
+      setJwt(Cookies.get("accessToken"));
       setUserRole(jwt_decode(Cookies.get("accessToken")).sub.split(',')[1]);
       setUserID(jwt_decode(Cookies.get("accessToken")).sub.split(',')[2]);
     }
