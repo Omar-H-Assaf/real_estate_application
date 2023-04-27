@@ -28,7 +28,7 @@ const Property = (props) => {
     }
 
     return <PropertyCard onClick={() => { if (!click && jwt && props.status !== "Contingent" && userRole === 'CUSTOMER') navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
-        <PropertyImage src={props.imgSource.includes("http") ? props.imgSource : URL.createObjectURL(props.imgSource)} />
+        <PropertyImage src={props.imgSource} />
         <PriceLabel>{props.price}</PriceLabel>
         <InfoConatiner>
             <InfoLabel>{props.area},</InfoLabel>
