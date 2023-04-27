@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { Button, Input } from "../shared/style";
 import { OfferContainer, PropertyImage, PropertyInfo, TextArea } from "./style";
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { SendOffer } from "../../services/UserService";
 import { SetJWT } from "../../store/context";
 const Offer = (props) => {
@@ -9,6 +9,7 @@ const Offer = (props) => {
     const param = useParams();
     const location = useLocation();
     const propertyInfo = useRef();
+    const navigate = useNavigate();
 
     const sendOffer = (e) => {
         e.preventDefault();
@@ -18,7 +19,7 @@ const Offer = (props) => {
             status: "OFFERED",
             property_id: param.id
         };
-        SendOffer(data, jwt)
+        SendOffer(data, jwt).then( res => navigate('/')).catch(err => console.log(err))
     }
 
     return (<OfferContainer>
