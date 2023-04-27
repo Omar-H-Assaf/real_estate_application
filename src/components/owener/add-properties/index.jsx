@@ -11,9 +11,11 @@ const AddProperties = () => {
     const addPropertiesRef = useRef();
     const [selectedImage, setSelectedImage] = useState(null);
     const navigate = useNavigate();
-    const { jwt } = useContext(SetJWT)
+    const { jwt } = useContext(SetJWT);
+
     const addProperties = (e) => {
         e.preventDefault();
+        Swal.showLoading();
 
         const formData = new FormData();
         formData.append('imgs', selectedImage);
@@ -24,7 +26,10 @@ const AddProperties = () => {
         formData.append('location', addPropertiesRef.current.location.value)
         formData.append('area', addPropertiesRef.current.area.value)
 
-        addProperty(formData, jwt).then(res => navigate('/')).catch(err => Swal.fire({
+        addProperty(formData, jwt).then(res => {
+            Swal.close()
+            navigate('/')
+        }).catch(err => Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
