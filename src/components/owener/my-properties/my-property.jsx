@@ -1,12 +1,14 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { PropertyImage, StatusLabel } from "../../property/style";
 import { Button, Input } from "../../shared/style";
 import { Container, PropertyCard } from "./style";
 import { updateProperty, deleteProperty } from "../../../services/PropertyService";
 import Cookies from "js-cookie";
+import { SetJWT } from "../../../store/context";
 
 const MyProperty = (props) => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const { jwt } = useContext(SetJWT);
 
 
     const propertyRef = useRef();
@@ -21,14 +23,14 @@ const MyProperty = (props) => {
             status: propertyRef.current.status.value,
             id: props.id
         }
-        updateProperty(data, Cookies.get('accessToken')).then(res => console.log(res)).catch(err => console.log(err))
+        updateProperty(data, jwt).then(res => console.log(res)).catch(err => console.log(err))
     }
 
 
     const handleDelete = id => {
         console.log(id);
         if (id) {
-            deleteProperty(id, Cookies.get('accessToken')).then(res => console.log(res)).catch(err => console.log(err))
+            deleteProperty(id, jwt).then(res => console.log(res)).catch(err => console.log(err))
         }
     }
 
@@ -43,7 +45,6 @@ const MyProperty = (props) => {
             <Container>
                 <Button onClick={(e) => save(e)}>Save Changes</Button>
                 <StatusLabel onClick={() => handleDelete(props.id)} status={"PENDING"}>Delete</StatusLabel>
-
             </Container>
         </PropertyCard >
     )

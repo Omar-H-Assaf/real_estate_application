@@ -7,7 +7,7 @@ const Application = (props) => {
     return <PropertyCard style={{ display: "flex", flexDirection: "column", gap: 40, padding: '2rem' }}>
         <InfoLabel>Id: {props.id}</InfoLabel>
         <InfoLabel>Price: {props.price}</InfoLabel>
-        <TextArea disabled>{props.message}</TextArea>
+        <TextArea disabled value={props.message} />
         <InfoLabel>Date: {props.date}</InfoLabel>
         <InfoLabel>Status: {props.status}</InfoLabel>
         <ButtonContainer>

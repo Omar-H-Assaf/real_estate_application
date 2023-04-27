@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PropertyContainer } from "../../homePage/style";
 import MyProperty from "./my-property";
 import { getMyProperties } from "../../../services/PropertyService";
-import Cookies from "js-cookie";
+import { SetJWT } from "../../../store/context";
 
 const MyProperties = () => {
     const [properties, setProperties] = useState([])
+    const { jwt } = useContext(SetJWT);
 
     useEffect(() => {
-        getMyProperties(Cookies.get('accessToken')).then((result) => {
+        getMyProperties(jwt).then((result) => {
             setProperties(result.data)
         }).catch((err) => {
             console.log(err);

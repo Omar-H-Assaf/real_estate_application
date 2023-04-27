@@ -1,16 +1,17 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Button, Input } from "../../shared/style";
 import { AddPropertiesContainer } from "./style";
 import { addProperty } from "../../../services/PropertyService";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { SetJWT } from "../../../store/context";
 
 const AddProperties = () => {
 
     const addPropertiesRef = useRef();
     const [selectedImage, setSelectedImage] = useState(null);
     const navigate = useNavigate();
-
+    const { jwt } = useContext(SetJWT)
     const addProperties = (e) => {
         e.preventDefault();
 
@@ -23,9 +24,9 @@ const AddProperties = () => {
         formData.append('location', addPropertiesRef.current.location.value)
         formData.append('area', addPropertiesRef.current.area.value)
 
-        addProperty(formData, Cookies.get('accessToken')).then(res => navigate('/')).catch(err => console.log(err))
+        addProperty(formData, jwt).then(res => navigate('/')).catch(err => console.log(err))
     }
-
+    console.log(selectedImage);
     return <div style={{ display: 'flex', justifyContent: "center", alignItem: "center", marginTop: '4rem' }}>
         <AddPropertiesContainer ref={addPropertiesRef}>
             <h1>Add Properties</h1>
