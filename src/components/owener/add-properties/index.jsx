@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { Button, Input } from "../../shared/style";
 import { AddPropertiesContainer } from "./style";
+import { PropertyImage } from "../../property/style";
 
 const AddProperties = () => {
 
     const addPropertiesRef = useRef();
-    const [property, setProperty] = useState({});
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const addProperties = (e) => {
         e.preventDefault();
@@ -15,7 +16,7 @@ const AddProperties = () => {
             numberOfRooms: addPropertiesRef.current.numberOfRooms.value,
             contractType: addPropertiesRef.current.contractType.value,
             location: addPropertiesRef.current.location.value,
-            image: addPropertiesRef.current.image.value,
+            image: selectedImage,
         }
         console.log(data);
     }
@@ -29,6 +30,14 @@ const AddProperties = () => {
             <Input placeholder="Contract Type" name="contractType" />
             <Input placeholder="Location" name="location" />
             <Input placeholder="Image" name="image" />
+            <input
+                type="file"
+                name="myImage"
+                onChange={(event) => {
+                    console.log(event.target.files[0]);
+                    setSelectedImage(event.target.files[0]);
+                }}
+            />
             <Button onClick={(e) => addProperties(e)}>Add Properties</Button>
         </AddPropertiesContainer>
     </div>
