@@ -16,7 +16,7 @@ const Offer = () => {
     }
 
     return (<OfferContainer>
-        <PropertyImage src={location.state.img} />
+        <PropertyImage src={location.state.img.includes("http") ? location.state.img : URL.createObjectURL(location.state.img)} />
         <PropertyInfo ref={propertyInfo}>
             <h1>Send Offer</h1>
             <Input name="offerName" typle="text" placeholder="Enter your offer price" />
