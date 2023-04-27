@@ -72,12 +72,12 @@ const HomePage = () => {
                 {
                     properties && properties.map(p => {
                         return searchData && searchData.length > 0 ? p.location.toLowerCase().includes(searchData.toLowerCase()) ?
-                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$' + p.price} area={p.area + "sqft"}
+                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]?.path} price={'$' + p.price} area={p.area + "sqft"}
                                 rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                             :
                             ''
                             :
-                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]['path']} price={'$' + p.price} area={p.area + "sqft"}
+                            <Property key={p.id} id={p.id} imgSource={p.pictures[0]?.path} price={'$' + p.price} area={p.area + "sqft"}
                                 rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
                     })
                 }

@@ -24,7 +24,7 @@ export const getMyProperties = (jwt) => {
 }
 
 export const updateProperty = (data , jwt) => {
-    return axios.put(API_URL + "property/"+data.id, data , {
+    return axios.put(API_URL + "property/", data , {
         headers:{
             Authorization: `Bearer ${jwt}`
         }
