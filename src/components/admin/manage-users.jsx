@@ -4,6 +4,7 @@ import { AllCustomersAndOwners, ResetUserPassword, ToggleUserStatus } from "../.
 import { Tabel, TabelWrap, Tbody, Td, Th, Thead, Tr, TrTabel } from "./style";
 import { Button } from "../shared/style";
 import { SignText } from "../shared/style";
+import Swal from 'sweetalert2'
 
 const ManageUsers = () => {
     const [usres, setUsres] = useState([]);
@@ -15,7 +16,11 @@ const ManageUsers = () => {
             .then((res) => {
                 setUsres(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, []);
 
     useEffect(() => {
@@ -23,31 +28,55 @@ const ManageUsers = () => {
             .then((res) => {
                 setUsres(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, [flag]);
 
     const HandleResetPassword = (id) => {
+        Swal.showLoading()
         ResetUserPassword({ jwt }, { id: id })
             .then((res) => {
                 setFlag(!flag);
+                Swal.close();
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     const HandleActivate = (id) => {
+        Swal.showLoading()
+
         ToggleUserStatus({ jwt }, { id: id, status: "ACTIVE" })
             .then((res) => {
+                Swal.close();
                 setFlag(!flag);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     const HandleDeactivate = (id) => {
+        Swal.showLoading()
+
         ToggleUserStatus({ jwt }, { id: id, status: "INACTIVE" })
             .then((res) => {
+                Swal.close();
                 setFlag(!flag);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     };
 
     return <>

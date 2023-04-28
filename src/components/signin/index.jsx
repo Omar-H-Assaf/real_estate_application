@@ -6,6 +6,7 @@ import { login } from '../../services/AuthService';
 import Cookies from 'js-cookie';
 import { SetJWT } from "../../store/context";
 import jwt_decode from 'jwt-decode';
+import Swal from 'sweetalert2'
 
 const SignInPage = () => {
     const navigate = useNavigate();
@@ -18,13 +19,19 @@ const SignInPage = () => {
             email: loginForm.current.email.value,
             password: loginForm.current.password.value
         }
+        Swal.showLoading()
         login(data).then(res => {
+            Swal.close()
             Cookies.set('accessToken', res.data.accessToken);
             Cookies.set('refreshToken', res.data.refreshToken);
             setJwt(jwt_decode(res.data.accessToken));
             navigate('/');
         })
-            .catch(err => console.log(err))
+            .catch(err => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }))
     }
 
     return (

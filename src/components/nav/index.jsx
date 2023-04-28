@@ -38,7 +38,7 @@ const NavBar = () => {
         <div>
             {userRole === 'OWNER' && <NavText onClick={() => { navigate("/add-properties") }}>Add Properties</NavText>}
             {userRole === 'OWNER' && <NavText onClick={() => { navigate("/my-properties") }}>My Properties</NavText>}
-            {userRole === 'OWNER' && <NavText onClick={() => { navigate("/all-applications") }}>all applications</NavText>}
+            {userRole === 'OWNER' && <NavText onClick={() => { navigate("/all-applications") }}>All Applications</NavText>}
             {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/") }}>Rented Properties</NavText>}
             {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/customers") }}>Last Customers</NavText>}
             {userRole === 'ADMIN' && <NavText onClick={() => { navigate("/manage-users") }}>Manage Users</NavText>}

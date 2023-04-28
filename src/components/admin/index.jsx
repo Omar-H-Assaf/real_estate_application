@@ -6,6 +6,7 @@ import { SetJWT } from "../../store/context";
 import { PropertyContainer } from "../homePage/style";
 import Property from "../property";
 import { PriceLabel } from "../property/style";
+import Swal from 'sweetalert2'
 
 const AdminDashboard = () => {
     const { jwt } = useContext(SetJWT);
@@ -16,7 +17,11 @@ const AdminDashboard = () => {
             .then((res) => {
                 setProperties(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, []);
 
     return (
@@ -30,7 +35,7 @@ const AdminDashboard = () => {
                                 <Property
                                     key={p.id}
                                     id={p.id}
-                                    imgSource={p.pictures[0]["path"]}
+                                    imgSource={p.pictures[0].path}
                                     price={"$" + p.price}
                                     area={p.area + "sqft"}
                                     rooms={p.rooms}

@@ -14,6 +14,7 @@ import {
 } from "./style";
 import { GetFavouriteProperties } from "../../services/FavoritesService";
 import { SetJWT } from "../../store/context";
+import Swal from 'sweetalert2'
 
 const HomePage = () => {
   const { jwt, userRole } = useContext(SetJWT);
@@ -33,11 +34,13 @@ const HomePage = () => {
         .catch((err) => console.log(err));
   }, [jwt]);
 
-  useEffect(() => {
-    property({ params: filterData })
-      .then((res) => setProperties(res.data))
-      .catch((err) => console.log(err));
-  }, [filterData]);
+    useEffect(() => {
+        property({ params: filterData }).then(res => setProperties(res.data)).catch(err => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        }))
+    }, [filterData])
 
   const removeFilters = (e) => {
     e.preventDefault();

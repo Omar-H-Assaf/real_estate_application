@@ -4,6 +4,7 @@ import { SetJWT } from "../../store/context";
 import { InfoLabel, PriceLabel } from "../property/style";
 import { UsersContainer } from "./style";
 import { PropertyContainer } from "../homePage/style";
+import Swal from 'sweetalert2'
 
 const RentedCustomers = () => {
     const [customers, setCustomers] = useState([]);
@@ -14,7 +15,11 @@ const RentedCustomers = () => {
             .then((res) => {
                 setCustomers(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }, []);
 
     return (<div style={{ marginTop: '4rem' }}>

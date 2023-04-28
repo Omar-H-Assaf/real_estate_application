@@ -43,7 +43,7 @@ const Property = (props) => {
         if (
           !click &&
           jwt &&
-          props.status !== "Contingent" &&
+          props.status !== "CONTINGENT" &&
           userRole === "CUSTOMER"
         )
           navigate(`/offer/${props.id}`, { state: { img: props.imgSource } });
@@ -55,6 +55,7 @@ const Property = (props) => {
         <InfoLabel>{props.area},</InfoLabel>
         <InfoLabel> Rooms: {props.rooms},</InfoLabel>
         <InfoLabel> {props.propertyType}</InfoLabel>
+        <InfoLabel> {props.location}</InfoLabel>
       </InfoConatiner>
       <StatusContainer>
         <StatusLabel status={props.status}>{props.status}</StatusLabel>
