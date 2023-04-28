@@ -38,3 +38,11 @@ export const deleteProperty = (id , jwt) => {
         }
     });
 }
+
+export const updateCounts = (id , jwt) => {
+    return axios.put(API_URL + 'property/' + id + '/clicks' , {} ,{
+        headers:{
+            Authorization: `Bearer ${jwt}`
+        }
+    })
+}
