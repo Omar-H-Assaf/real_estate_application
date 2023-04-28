@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
-import { PropertyImage, StatusLabel } from "../../property/style";
-import { Button, Input } from "../../shared/style";
+import { InfoLabel, PropertyImage, StatusLabel } from "../../property/style";
+import { Button, Input, SignText } from "../../shared/style";
 import { Container, PropertyCard } from "./style";
 import { updateProperty, deleteProperty } from "../../../services/PropertyService";
 import { SetJWT } from "../../../store/context";
@@ -54,7 +54,6 @@ const MyProperty = (props) => {
             }))
         }
     }
-    console.log(props.imgSource);
 
     return (
         <PropertyCard ref={propertyRef}>
@@ -64,6 +63,7 @@ const MyProperty = (props) => {
             <Input defaultValue={props.rooms} name="rooms" />
             <Input defaultValue={props.propertyType} name="propertyType" />
             <Input defaultValue={props.status} name="status" />
+            <InfoLabel>Clickes: {props.clickCount}</InfoLabel>
             <Container>
                 <Button onClick={(e) => save(e)}>Save Changes</Button>
                 <StatusLabel onClick={() => handleDelete(props.id)} status={"PENDING"}>Delete</StatusLabel>

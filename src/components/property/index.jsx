@@ -57,8 +57,8 @@ const Property = (props) => {
           jwt &&
           props.status !== "CONTINGENT" &&
           userRole === "CUSTOMER"
-        ){
-          updateCounts(props.id , jwt).then( res => console.log(res)).catch(err => console.log(err))
+        ) {
+          updateCounts(props.id, jwt).then(res => console.log(res)).catch(err => console.log(err))
           navigate(`/offer/${props.id}`, { state: { img: props.imgSource } });
         }
       }}
@@ -68,7 +68,7 @@ const Property = (props) => {
       <InfoConatiner>
         <InfoLabel>{props.area},</InfoLabel>
         <InfoLabel> Rooms: {props.rooms},</InfoLabel>
-        <InfoLabel> {props.propertyType}</InfoLabel>
+        <InfoLabel> {props.propertyType},</InfoLabel>
         <InfoLabel> {props.location}</InfoLabel>
       </InfoConatiner>
       <StatusContainer>

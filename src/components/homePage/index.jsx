@@ -29,7 +29,6 @@ const HomePage = () => {
   const filterRef = useRef();
 
   useEffect(() => {
-    console.log(jwt);
     if (jwt !== "" && typeof jwt == "string") {
       GetFavouriteProperties(jwt)
         .then((res) => setAllFav(res.data))
@@ -76,6 +75,7 @@ const HomePage = () => {
   const onSearch = (events) => {
     setSearchData(events.target.value);
   };
+
   return (
     <HomePageContainer>
       <ImageContainer>
@@ -123,6 +123,7 @@ const HomePage = () => {
                   rooms={p.rooms}
                   status={p.status}
                   propertyType={p.propertyType}
+                  location={p.location}
                   flag={flag}
                   setFlag={setFlag}
                 />
@@ -141,6 +142,7 @@ const HomePage = () => {
                 status={p.status}
                 propertyType={p.propertyType}
                 flag={flag}
+                location={p.location}
                 setFlag={setFlag}
               />
             );

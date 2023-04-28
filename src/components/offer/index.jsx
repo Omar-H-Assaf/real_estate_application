@@ -4,6 +4,8 @@ import { OfferContainer, PropertyImage, PropertyInfo, TextArea } from "./style";
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { SendOffer } from "../../services/UserService";
 import { SetJWT } from "../../store/context";
+import Swal from 'sweetalert2'
+
 const Offer = (props) => {
     const { jwt } = useContext(SetJWT);
     const param = useParams();
@@ -13,13 +15,18 @@ const Offer = (props) => {
 
     const sendOffer = (e) => {
         e.preventDefault();
+        Swal.showLoading();
         const data = {
             price: propertyInfo.current.price.value,
             message: propertyInfo.current.comment.value,
             status: "OFFERED",
             property_id: param.id
         };
-        SendOffer(data, jwt).then( res => navigate('/')).catch(err => console.log(err))
+        SendOffer(data, jwt).then(res => { Swal.close(); navigate('/'); }).catch(err => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        }))
     }
 
     return (<OfferContainer>

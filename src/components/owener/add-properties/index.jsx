@@ -35,7 +35,7 @@ const AddProperties = () => {
             text: 'Something went wrong!',
         }))
     }
-    console.log(selectedImage);
+
     return <div style={{ display: 'flex', justifyContent: "center", alignItem: "center", marginTop: '4rem' }}>
         <AddPropertiesContainer ref={addPropertiesRef}>
             <h1>Add Properties</h1>
