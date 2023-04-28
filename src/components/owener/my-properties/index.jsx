@@ -27,7 +27,7 @@ const MyProperties = () => {
             {
                 properties && properties.map(p => {
                     console.log(p);
-                    return <MyProperty flag={flag} setFlag={setFlag} key={p.id} id={p.id} imgSource={p.pictures[0].path} price={p.price} area={p.area} rooms={p.rooms} status={p.status} propertyType={p.propertyType} />
+                    return <MyProperty flag={flag} setFlag={setFlag} key={p.id} id={p.id} imgSource={p.pictures[0].path} price={p.price} area={p.area} rooms={p.rooms} status={p.status} propertyType={p.propertyType} clickCount={p.clickCount} />
                 })
             }
         </PropertyContainer >
