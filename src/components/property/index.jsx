@@ -16,6 +16,7 @@ import Popup from "./popup";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { SetJWT } from "../../store/context";
 import { RemovePropertyToFavouriteList } from "../../services/FavoritesService";
+import { updateCounts } from "../../services/PropertyService";
 
 const Property = (props) => {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ const Property = (props) => {
           props.status !== "CONTINGENT" &&
           userRole === "CUSTOMER"
         )
+          updateCounts(props.id , jwt).then( res => console.log(res)).catch(err => console.log(err))
           navigate(`/offer/${props.id}`, { state: { img: props.imgSource } });
       }}
     >
