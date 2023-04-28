@@ -35,7 +35,7 @@ const AdminDashboard = () => {
                                 <Property
                                     key={p.id}
                                     id={p.id}
-                                    imgSource={p.pictures[0]["path"]}
+                                    imgSource={p.pictures[0].path}
                                     price={"$" + p.price}
                                     area={p.area + "sqft"}
                                     rooms={p.rooms}

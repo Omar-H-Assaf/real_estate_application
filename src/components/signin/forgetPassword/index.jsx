@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Button, Input, SignContainer, SignForm } from "../../shared/style"
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { resetPassword, sendOtp } from "../../../services/AuthService";
 
 const ForgetPassword = () => {
     const navigate = useNavigate();
@@ -12,16 +13,38 @@ const ForgetPassword = () => {
         e.preventDefault();
         const ref = ForgetPasswordRef.current
         if (ref.email) {
-            setOtpSuccess(true)
-        }
-        if (otpSuccess) {
-            if (ref.otp.value === "1234") { navigate('/sign-in') }
-            else {
+            Swal.showLoading()
+            sendOtp({ email: ref.email.value }).then((res) => {
+                setOtpSuccess(true);
+                Swal.close();
+                console.log(res);
+            }).catch((err) => {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Wrong otp!',
+                    title: 'Wrong Email!',
+                })
+            })
+        }
+        if (otpSuccess) {
+            if (ref.pass1.value === ref.pass2.value) {
+                Swal.showLoading()
+                resetPassword({ email: ref.email2.value, otp: ref.otp.value, password: ref.pass1.value }).then((res) => {
+                    setOtpSuccess(true);
+                    Swal.close();
+                    navigate('/sign-in')
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong!',
+                    })
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Unmatch Password!',
                 })
             }
+
         }
     }
 
@@ -30,13 +53,13 @@ const ForgetPassword = () => {
             <SignForm ref={ForgetPasswordRef} onSubmit={SubmitHandler}>
                 {otpSuccess ? <>
 
-                    <Input type="email" placeholder="Enter Your Email" required />
+                    <Input type="email" name="email2" placeholder="Enter Your Email" required />
                     <Input type="number" name="otp" placeholder="Enter OTP" required />
-                    <Input type="password" placeholder="Enter Your Password" required />
-                    <Input type="password" placeholder="Confirm Password" required /></>
+                    <Input type="password" name="pass1" placeholder="Enter Your Password" required />
+                    <Input type="password" name="pass2" placeholder="Confirm Password" required /></>
                     : <Input type="email" name="email" placeholder="Enter Your Email" required />
                 }
-                <Button type="submit">{otpSuccess ? 'Back to Sign In' : 'Change Password'}</Button>
+                <Button type="submit">{otpSuccess ? 'Change Password' : 'Send OTP'}</Button>
             </SignForm>
         </SignContainer>
     );
