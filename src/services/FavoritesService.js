@@ -8,7 +8,6 @@ export const GetFavouriteLists = (jwt) => {
 };
 
 export const GetFavouriteProperties = (jwt) => {
-  console.log(jwt);
   return axios.get(API_URL + "favourite/alluserfavouriteprops", {
     headers: { Authorization: `Bearer ${jwt}` },
   });
@@ -17,10 +16,10 @@ export const GetFavouriteProperties = (jwt) => {
 export const AddPropertyToFavouriteList = (jwt, listId, propertyId) => {
   return axios.post(
     API_URL +
-      "favourite/addpropertytofavorite?listid=" +
-      listId +
-      "&propertyid=" +
-      propertyId,
+    "favourite/addpropertytofavorite?listid=" +
+    listId +
+    "&propertyid=" +
+    propertyId,
     {},
     {
       headers: {

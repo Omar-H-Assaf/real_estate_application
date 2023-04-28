@@ -14,8 +14,6 @@ const Popup = (props) => {
   const [favoriteLists, setFavoriteLists] = useState([]);
   const [flag, setFlag] = useState([]);
 
-  console.log(props);
-
   const newListRef = useRef("");
 
   useEffect(() => {

@@ -17,7 +17,6 @@ const ForgetPassword = () => {
             sendOtp({ email: ref.email.value }).then((res) => {
                 setOtpSuccess(true);
                 Swal.close();
-                console.log(res);
             }).catch((err) => {
                 Swal.fire({
                     icon: 'error',

@@ -16,7 +16,7 @@ const AllAplication = () => {
     return <PropertyContainer style={{ marginTop: '2rem' }}>
         {
             offers && offers.map(offer => {
-                return <Application flag={flag} setFlag={setFlag} id={offer.id} price={offer.price} message={offer.message} date={offer.offerDate} status={offer.status} />
+                return <Application flag={flag} setFlag={setFlag} key={offer.id} id={offer.id} price={offer.price} message={offer.message} date={offer.offerDate} status={offer.status} />
             })
         }
     </PropertyContainer>
