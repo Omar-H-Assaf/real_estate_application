@@ -57,9 +57,10 @@ const Property = (props) => {
           jwt &&
           props.status !== "CONTINGENT" &&
           userRole === "CUSTOMER"
-        )
+        ){
           updateCounts(props.id , jwt).then( res => console.log(res)).catch(err => console.log(err))
           navigate(`/offer/${props.id}`, { state: { img: props.imgSource } });
+        }
       }}
     >
       <PropertyImage src={props.imgSource} />
