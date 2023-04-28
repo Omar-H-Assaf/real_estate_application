@@ -15,6 +15,7 @@ import { useContext, useEffect, useState } from "react";
 import Popup from "./popup";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { SetJWT } from "../../store/context";
+import { RemovePropertyToFavouriteList } from "../../services/FavoritesService";
 
 const Property = (props) => {
   const navigate = useNavigate();
@@ -24,10 +25,20 @@ const Property = (props) => {
 
   const setFavIcon = (e) => {
     e.stopPropagation();
-    setFav(!fav);
-    setClick(true);
-    disableBodyScroll(document);
+
+    if (props.favList.includes(props.id)) {
+      RemovePropertyToFavouriteList(jwt, props.id)
+        .then((res) => {
+          props.setFlag(!props.flag);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setFav(!fav);
+      setClick(true);
+      disableBodyScroll(document);
+    }
   };
+
   useEffect(() => {
     enableBodyScroll(document);
   }, []);
@@ -66,7 +77,14 @@ const Property = (props) => {
           />
         )}
       </StatusContainer>
-      {click && fav && <Popup onData={childData} />}
+      {click && fav && (
+        <Popup
+          onData={childData}
+          propid={props.id}
+          flag={props.flag}
+          setFlag={props.setFlag}
+        />
+      )}
     </PropertyCard>
   );
 };

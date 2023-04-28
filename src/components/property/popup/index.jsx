@@ -14,12 +14,12 @@ const Popup = (props) => {
   const [favoriteLists, setFavoriteLists] = useState([]);
   const [flag, setFlag] = useState([]);
 
-  const propertyId = 5;
+  console.log(props);
 
   const newListRef = useRef("");
 
   useEffect(() => {
-    GetFavouriteLists({ jwt })
+    GetFavouriteLists(jwt)
       .then((res) => {
         setFavoriteLists(res.data);
       })
@@ -34,8 +34,10 @@ const Popup = (props) => {
   const HandleAddToListClick = (e, listId) => {
     e.preventDefault();
 
-    AddPropertyToFavouriteList({ jwt }, listId, propertyId)
-      .then((res) => {})
+    AddPropertyToFavouriteList(jwt, listId, props.propid)
+      .then((res) => {
+        props.setFlag(!props.flag);
+      })
       .catch((err) => console.log(err));
 
     closeFunc(e);
@@ -45,7 +47,7 @@ const Popup = (props) => {
   const HandleCreateNewFavListClick = (e) => {
     e.preventDefault();
 
-    CreateNewFavList({ jwt }, newListRef.current.value)
+    CreateNewFavList(jwt, newListRef.current.value)
       .then((res) => {
         newListRef.current.value = "";
         setFlag(!flag);
@@ -63,7 +65,7 @@ const Popup = (props) => {
         <ListContainer style={{ display: "flex", flexDirection: "column" }}>
           {favoriteLists.map((l) => {
             return (
-              <div>
+              <div key={l.id}>
                 <ListName>{l.name + "     "}</ListName>
                 <Button onClick={(e) => HandleAddToListClick(e, l.id)}>
                   Add to this list
