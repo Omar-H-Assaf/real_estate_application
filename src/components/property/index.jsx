@@ -27,13 +27,14 @@ const Property = (props) => {
         enableBodyScroll(document);
     }
 
-    return <PropertyCard onClick={() => { if (!click && jwt && props.status !== "Contingent" && userRole === 'CUSTOMER') navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
+    return <PropertyCard onClick={() => { if (!click && jwt && props.status !== "CONTINGENT" && userRole === 'CUSTOMER') navigate(`/offer/${props.id}`, { state: { img: props.imgSource } }) }}>
         <PropertyImage src={props.imgSource} />
         <PriceLabel>{props.price}</PriceLabel>
         <InfoConatiner>
             <InfoLabel>{props.area},</InfoLabel>
             <InfoLabel> Rooms: {props.rooms},</InfoLabel>
-            <InfoLabel> {props.propertyType}</InfoLabel>
+            <InfoLabel> {props.propertyType},</InfoLabel>
+            <InfoLabel> {props.location}</InfoLabel>
         </InfoConatiner>
         <StatusContainer>
             <StatusLabel status={props.status}>{props.status}</StatusLabel>

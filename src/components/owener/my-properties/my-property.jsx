@@ -54,6 +54,7 @@ const MyProperty = (props) => {
             }))
         }
     }
+    console.log(props.imgSource);
 
     return (
         <PropertyCard ref={propertyRef}>
