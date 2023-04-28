@@ -3,13 +3,14 @@ import { API_URL } from "../config";
 
 export const GetFavouriteLists = (jwt) => {
   return axios.get(API_URL + "favourite", {
-    headers: { Authorization: `Bearer ${jwt.jwt}` },
+    headers: { Authorization: `Bearer ${jwt}` },
   });
 };
 
 export const GetFavouriteProperties = (jwt) => {
+  console.log(jwt);
   return axios.get(API_URL + "favourite/alluserfavouriteprops", {
-    headers: { Authorization: `Bearer ${jwt.jwt}` },
+    headers: { Authorization: `Bearer ${jwt}` },
   });
 };
 
@@ -20,9 +21,10 @@ export const AddPropertyToFavouriteList = (jwt, listId, propertyId) => {
       listId +
       "&propertyid=" +
       propertyId,
+    {},
     {
       headers: {
-        Authorization: `Bearer ${jwt.jwt}`,
+        Authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
     }
@@ -34,7 +36,7 @@ export const RemovePropertyToFavouriteList = (jwt, propertyId) => {
     API_URL + "favourite/removepropertytofavorite?propertyid=" + propertyId,
     {
       headers: {
-        Authorization: `Bearer ${jwt.jwt}`,
+        Authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
     }
@@ -47,7 +49,7 @@ export const CreateNewFavList = (jwt, name) => {
     { name: name },
     {
       headers: {
-        Authorization: `Bearer ${jwt.jwt}`,
+        Authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
     }

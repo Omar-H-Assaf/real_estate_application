@@ -14,7 +14,7 @@ import {
 } from "./style";
 import { GetFavouriteProperties } from "../../services/FavoritesService";
 import { SetJWT } from "../../store/context";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const HomePage = () => {
   const { jwt, userRole } = useContext(SetJWT);
@@ -24,23 +24,30 @@ const HomePage = () => {
   const [filterData, setFilterData] = useState({});
   const [searchData, setSearchData] = useState("");
   const [allFav, setAllFav] = useState([]);
+  const [flag, setFlag] = useState([]);
+
   const filterRef = useRef();
 
   useEffect(() => {
     console.log(jwt);
-    if (jwt !== "")
-      GetFavouriteProperties({ jwt })
+    if (jwt !== "" && typeof jwt == "string") {
+      GetFavouriteProperties(jwt)
         .then((res) => setAllFav(res.data))
         .catch((err) => console.log(err));
-  }, [jwt]);
+    }
+  }, [jwt, flag]);
 
-    useEffect(() => {
-        property({ params: filterData }).then(res => setProperties(res.data)).catch(err => Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-        }))
-    }, [filterData])
+  useEffect(() => {
+    property({ params: filterData })
+      .then((res) => setProperties(res.data))
+      .catch((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        })
+      );
+  }, [filterData]);
 
   const removeFilters = (e) => {
     e.preventDefault();
@@ -116,6 +123,8 @@ const HomePage = () => {
                   rooms={p.rooms}
                   status={p.status}
                   propertyType={p.propertyType}
+                  flag={flag}
+                  setFlag={setFlag}
                 />
               ) : (
                 ""
@@ -131,6 +140,8 @@ const HomePage = () => {
                 rooms={p.rooms}
                 status={p.status}
                 propertyType={p.propertyType}
+                flag={flag}
+                setFlag={setFlag}
               />
             );
           })}
